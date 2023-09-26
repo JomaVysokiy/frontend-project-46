@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import path, { dirname } from 'path';
 import fs from 'fs';
-
+import _ from 'lodash'
 import { fileURLToPath } from 'url';
 
 // import sortBy from 'lodash';
@@ -38,21 +38,34 @@ program
         const gendiff = (data1, data2) => {
             const keys1 = Object.keys(data1)
             const keys2 = Object.keys(data2)
-            const keys = [...keys1, ...keys2]
-            const result = {}
-
+            const keys = [...keys1, ...keys2].sort()
+ 
+            ///////////////////
+            console.log(keys)
+            let str = '';
+            let arr = []
+            // result
             for (const key of keys) {
               if (!Object.hasOwn(data1, key)) {
-                result[key] = 'added'
+                // 'added'
+                str = `${str} + ${key}: ${data2[key]}, \n`
               } else if (!Object.hasOwn(data2, key)) {
-                result[key] = 'deleted'
+                // 'deleted'
+                str = `${str} - ${key}: ${data1[key]}, \n`
               } else if (data1[key] !== data2[key]) {
-                result[key] = 'changed'
+                // 'changed'
+                str = `${str} - ${key}: ${data1[key]}, \n`
+                str = `${str} + ${key}: ${data2[key]}, \n`
               } else {
-                result[key] = 'unchanged'
+                // 'unchanged'
+                str = `${str}   ${key}: ${data1[key]}, \n`
               }
-            }       
-            return result
+
+              arr = str.split('\n')
+              arr = _.uniq(arr)
+              str = arr.join('\n')
+            }    
+            return `{\n${str}}`
         }
 
         console.log(gendiff(objContentFirstFile, objContentSecondFile))
