@@ -35,41 +35,36 @@ program
         const objContentFirstFile = getObject(strFirstFile);
         const objContentSecondFile = getObject(strSecondFile);
 
-        const arrOfFirst = Object.entries(objContentFirstFile);
-        const arrOfSecond = Object.entries(objContentSecondFile);
+        const gendiff = (data1, data2) => {
+            const keys1 = Object.keys(data1)
+            const keys2 = Object.keys(data2)
+            const keys = [...keys1, ...keys2]
+            const result = {}
 
-        const arrWithPaths = arrOfFirst.concat(arrOfSecond)
-
-        // console.log(objContentFirstFile)
-        // console.log(objContentSecondFile)
-        console.log(arrWithPaths)
-
-        // выводит совпадение,но при работе совместно с массивом не работает
-        // if (Object.hasOwn(objContentFirstFile, 'host') &&
-        // Object.hasOwn(objContentFirstFile, 'host')) {
-        //     let newObj = {}
-        //     newObj.host = objContentFirstFile.host
-        //     console.log(newObj)
-        // }
-
-    
-        const getCoincidences = (arrWithPaths) => {
-            let newObj = {};
-            for (let [key, value] of arrWithPaths) {
-                if (Object.hasOwn(newObj, key)) {
-                    
-                }
-            }    
-            return newObj 
+            for (const key of keys) {
+              if (!Object.hasOwn(data1, key)) {
+                result[key] = 'added'
+              } else if (!Object.hasOwn(data2, key)) {
+                result[key] = 'deleted'
+              } else if (data1[key] !== data2[key]) {
+                result[key] = 'changed'
+              } else {
+                result[key] = 'unchanged'
+              }
+            }       
+            return result
         }
 
-        // for (let [key, value] of arrWithPaths) {
-        //     if (Object.hasOwn())
+        console.log(gendiff(objContentFirstFile, objContentSecondFile))
+        // можем добавлять массив [key, valuee]
+        // {
+        //     - follow: false
+        //       host: hexlet.io
+        //     - proxy: 123.234.53.22
+        //     - timeout: 50
+        //     + timeout: 20
+        //     + verbose: true
         // }
-
-        const coincidences = getCoincidences(arrWithPaths)
-        console.log(coincidences)
-       
     });
 
 program.parse();
