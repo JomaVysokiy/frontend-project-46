@@ -20,6 +20,9 @@ run:
 test:
 	./gradlew test
 
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
+
 report:
 	./gradlew jacocoTestReport
 
