@@ -1,38 +1,22 @@
-.DEFAULT_GOAL := build-run
-
-install:
-	npm ci
-clean:
-	./gradlew clean
-
-build:
-	./gradlew clean build
-
-install:
-	./gradlew clean install
-
-run-dist:
-	./build/install/java-package/bin/java-package
+install: install-deps
+	npx simple-git-hooks
 
 run:
-	./gradlew run
+	bin/nodejs-package.js 10
+
+install-deps:
+	npm ci
 
 test:
-	./gradlew test
+	npm test
 
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 
-report:
-	./gradlew jacocoTestReport
-
 lint:
-	./gradlew checkstyleMain checkstyleTest
+	npx eslint .
 
-update-deps:
-	./gradlew useLatestVersions
+publish:
+	npm publish
 
-
-build-run: build run
-
-.PHONY: build
+.PHONY: test
