@@ -5,7 +5,7 @@
   "main": "gendiff.js",
   "type": "module",
   "bin": {
-    "gendiff": "../bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,15 +21,13 @@
   },
   "homepage": "https://github.com/JomaVysokiy/frontend-project-46#readme",
   "dependencies": {
-    "eslint-config-airbnb-base": "^15.0.0",
     "commander": "^11.0.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@jest/globals": "^29.5.0",
+    "@jest/globals": "^29.6.0",
     "eslint": "^8.48.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-fp": "^2.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.1",
     "jest": "^29.5.0"
   }
