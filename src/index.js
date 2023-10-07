@@ -1,4 +1,5 @@
 import _ from 'lodash';
+// const _ = require('lodash');
 
 export default (data1, data2) => {
   const keys1 = Object.keys(data1);
