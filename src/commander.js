@@ -8,7 +8,7 @@ const getFixturePath = (filename) => {
   return path.join(__dirname, '..', '__fixtures__', filename);
 };
 
-const getContentFile = (fixturePath) => fs.readFileSync(fixturePath, 'UTF-8');
+const getContentFile = (fixturePath) => fs.readFileSync(getFixturePath(fixturePath), 'UTF-8');
 
 const getObject = (str) => JSON.parse(str);
 

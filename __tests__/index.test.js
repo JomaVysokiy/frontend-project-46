@@ -1,15 +1,18 @@
-import { Command } from 'commander';
+import { test, expect } from '@jest/globals';
+import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import gendiff from '../src/index.js';
-import { getFixturePath, getContentFile, getObject } from '../src/commander.js';
-import { test, expect, beforeEach } from '@jest/globals';
 
-test('gendiff file1.yml and file2.yml', (filepath1, filepath2) => {
-    const firstPath = getFixturePath(filepath1);
-    const secondPath = getFixturePath(filepath2);
-    const strFirstFile = getContentFile(firstPath);
-    const strSecondFile = getContentFile(secondPath);
-    const objContentFirstFile = getObject(strFirstFile);
-    const objContentSecondFile = getObject(strSecondFile);
-    const result = gendiff(objContentFirstFile, objContentSecondFile)
-    expect(gendiff(objContentFirstFile, objContentSecondFile)).toEqual(result);
-})
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const getFixturePath = (filename) => { path.join(__dirname, '..', '__fixtures__', filename); };
+const getContentFile = (fixturePath) => fs.readFileSync(getFixturePath(fixturePath), 'UTF-8');
+
+test('gendiff file1.json and file2.json', () => {
+  const firstPath = getContentFile('file1.json');
+  const secondPath = getContentFile('file2.json');
+  const expectedDifferences = gendiff(firstPath, secondPath);
+  expect(gendiff('file1.json', 'file2.json')).toEqual(expectedDifferences);
+});
