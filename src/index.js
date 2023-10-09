@@ -28,6 +28,7 @@ export default (data1, data2) => {
   });
 
   list = _.uniq(list);
-  const result = list.join('\n');
-  return `{\n${result}\n}`;
+  let result = list.join('\n');
+  result = `{\n${result}\n}`;
+  return result
 };
